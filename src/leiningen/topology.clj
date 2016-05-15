@@ -1,9 +1,12 @@
 (ns leiningen.topology
   (:require [leiningen.core.eval :as lein]))
 
+;; TODO: Might need to remove the version of clojure included by the project.
 (defn topology [project & args]
-  (println "Project name: " (:name project))
-  (lein/eval-in-project (update-in project [:dependencies] conj '[lein-topology "0.1.0-SNAPSHOT"])
-                        `(topology.core/all-ns->edgelist-csv ~(:name project) topology.namespaces/namespaces #{})
-                        `(require 'topology.core 'topology.namespaces))
-  (println "That's all for now..."))
+  (println "rolling...")
+  (lein/eval-in-project (update-in project [:dependencies] conj
+                                   '[lein-topology "0.1.0-SNAPSHOT"]
+                      )
+                        `(topology.core/all-ns->edgelist-csv ~(:source-paths project))
+                        `(require 'topology.core))
+)
