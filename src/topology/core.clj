@@ -38,24 +38,9 @@
       (.write w (str outv "," inv))
       (.newLine w))))
 
-(defn- ignored? [[outv inv] filter-set]
-  (let [inv-nspc (clojure.string/split inv #"/")]
-    (some filter-set inv-nspc)))
-
-(defn ns->edgelist
-  ([ns-str] (ns->edgelist ns-str #{}))
-  ([ns-str filter-set]
-   (let [e (ns->edges ns-str)]
-     (remove #(ignored? % filter-set) e))))
-
-(defn ns->edgelist-csv
-  ([ns-str file] (ns->edgelist-csv file #{}))
-  ([ns-str file filter-set]
-   (->> (ns->edgelist ns-str filter-set)
-        (edges->csv file))))
-
-(defn all-ns->edgelist-csv [project namespaces ignored]
-  (println (seq (.getURLs (java.lang.ClassLoader/getSystemClassLoader))))
+(defn all-ns->edgelist-csv [project namespaces]
+  ;; (println (seq (.getURLs (java.lang.ClassLoader/getSystemClassLoader))))
   (doseq [nspc namespaces]
     (println nspc)
-    (ns->edgelist-csv nspc (str "/tmp/" project "/" nspc ".csv") ignored)))
+    (->> (ns->edges nspc)
+         (edges->csv (str "/tmp/" project "/" nspc ".csv")))))
