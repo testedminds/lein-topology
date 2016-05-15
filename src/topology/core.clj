@@ -5,7 +5,8 @@
             [clojure.set :as set]
             [clojure.pprint :as cp]
             [clojure.tools.namespace.file :as ns-file]
-            [clojure.tools.namespace.find :as ns-find])
+            [clojure.tools.namespace.find :as ns-find]
+)
   (:import java.io.File))
 
 (defn- with-vars
