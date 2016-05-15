@@ -44,6 +44,7 @@
       (.write w (str outv "," inv))
       (.newLine w))))
 
+<<<<<<< HEAD
 (defn- ignored? [[outv inv] filter-set]
   (let [inv-nspc (clojure.string/split inv #"/")]
     (some filter-set inv-nspc)))
