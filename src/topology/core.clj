@@ -38,8 +38,9 @@
       (.write w (str outv "," inv))
       (.newLine w))))
 
-(defn all-ns->edgelist-csv [project namespaces]
+(defn all-ns->edgelist-csv [project sources namespaces]
   ;; (println (seq (.getURLs (java.lang.ClassLoader/getSystemClassLoader))))
+  (println sources)
   (doseq [nspc namespaces]
     (println nspc)
     (->> (ns->edges nspc)
