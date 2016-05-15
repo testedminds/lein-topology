@@ -44,23 +44,6 @@
       (.write w (str outv "," inv))
       (.newLine w))))
 
-<<<<<<< HEAD
-(defn- ignored? [[outv inv] filter-set]
-  (let [inv-nspc (clojure.string/split inv #"/")]
-    (some filter-set inv-nspc)))
-
-(defn ns->edgelist
-  ([ns-str] (ns->edgelist ns-str #{}))
-  ([ns-str filter-set]
-   (let [e (ns->edges ns-str)]
-     (remove #(ignored? % filter-set) e))))
-
-(defn ns->edgelist-csv
-  ([ns-str file] (ns->edgelist-csv file #{}))
-  ([ns-str file filter-set]
-   (->> (ns->edgelist ns-str filter-set)
-        (edges->csv file))))
-
 ;;;;;;;;;
 
 ;; TODO: Move to a finder namespace and acknowledge https://github.com/greglook/lein-hiera/blob/master/src/leiningen/hiera.clj
@@ -99,11 +82,9 @@
 
 (defn all-ns->edgelist-csv [dest source-paths]
   ;;(println (seq (.getURLs (java.lang.ClassLoader/getSystemClassLoader))))
-  (println "Now we're in the fucking project...")
-  (let [sources (find-sources source-paths)
+  (let [sources (find-sources (vector source-paths))
         namespaces (set (file-namespaces sources))]
-    (cp/pprint namespaces)
     (doseq [nspc namespaces]
       (println nspc)
-      ;;(ns->edgelist-csv nspc (str dest "/" nspc ".csv") ignored)
-      )))
+      (->> (ns->edges nspc)
+           (edges->csv (str dest "/" nspc ".csv"))))))
