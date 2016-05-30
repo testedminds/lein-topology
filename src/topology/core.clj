@@ -5,7 +5,6 @@
 
 (defn print-weighted-edges
   [edges]
-  (println "source,target,weight")
   (doseq [[[outv inv] w] edges]
     (println (str/join "," [outv inv w]))))
 
