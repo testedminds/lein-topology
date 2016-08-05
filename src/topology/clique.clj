@@ -19,7 +19,10 @@
 (defn fqns
   "Returns the fully qualified namespace of the given symbol s in namespace ns"
   ([ns s]
-   (if-let [rns (-> (ns-resolve ns s) meta :ns)]
+   (if-let [rns (try (-> (ns-resolve ns s) meta :ns)
+                     (catch Exception e
+                       (.println *err* (str "Could not resolve: " ns "/" s))
+                       nil))]
      (symbol (str rns) (name s))
      s)))
 
