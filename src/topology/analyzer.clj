@@ -21,12 +21,7 @@
   [ns-str]
   (filter #(= :def (:op %)) (jvm/analyze-ns ns-str)))
 
-(defn ns->edges
-  [ns-str]
-  (mapcat #(edges ns-str %) (ns->defs ns-str)))
-
-;; classpath
-(defn broken-ns->edges [ns-str]
+(defn ns->edges [ns-str]
   (mapcat (fn [[f deps]] (map (fn [x] [f x]) deps))
           (c/filtered (c/all-fq (c/dependencies ns-str)))))
 
