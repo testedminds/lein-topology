@@ -39,7 +39,7 @@ If everything looks good, redirect to file: `lein topology > /tmp/topology.csv`
   * An online option with vis.js as with Storm of Swords allows the analysis to be more easily shared with a team. Having an up-to-date diagram with each commit might be interesting. Might even make sense to do this before a commit.
 
 
-## What is a Function Dependency Network?
+## What is a Function Dependency Graph?
 
 <TODO: Explain the distinction between control flow graph and function dependency>
 
