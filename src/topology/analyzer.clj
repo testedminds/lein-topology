@@ -24,10 +24,3 @@
 (defn ns->edges [ns-str]
   (mapcat (fn [[f deps]] (map (fn [x] [f x]) deps))
           (c/filtered (c/all-fq (c/dependencies ns-str)))))
-
-;; a test def
-(def foobar (map #(* 2 %) (range 10)))
-
-;; a test defn that includes a macro
-(defn testing [foo]
-  (when foo (println "bar! baz!")))

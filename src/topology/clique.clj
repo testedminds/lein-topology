@@ -14,7 +14,7 @@
        (require ns)
        (map meta (vals (ns-interns ns)))))
     (catch Exception e
-      (println e))))
+      (.println *err* e))))
 
 (defn fqns
   "Returns the fully qualified namespace of the given symbol s in namespace ns"
