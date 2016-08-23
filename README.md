@@ -1,51 +1,62 @@
 # lein-topology
 
-`lein topology` generates a Clojure project's function dependency graph. Data is output as CSV in the format `source,target,weight` and should be interpreted as ns/source-function calls ns/target-function <weight> times. Try running lein-topology on itself:
+`lein topology` generates data representing a Clojure project's function [dependency structure matrix](https://en.wikipedia.org/wiki/Design_structure_matrix) (DSM). Data is output to `stdout` in the format `source,target,weight` and should be interpreted as `ns/source-function` calls `ns/target-function` `weight` times in the library or application.
 
-<TODO: Topology of topology>
-
-Use `lein topology` to "collect the dots"; visualization, filtering, and analysis can be done with the tools of your choice, regardless of whether or not those tools are written in Clojure.
-This is partly what distinguishes `lein topology` from the numerous other projects and lein plugins that create namespace or partially complete function call graphs.
+Use `lein topology` to "collect the dots"...you can "connect the dots" to visualize, filter, and analyze with the tools of your choice, regardless of whether or not those tools are written in Clojure. Decoupling network data collection and analysis distinguishes `lein topology` from the numerous other projects and `lein` plugins that create namespace or function graphs and produce artifacts like diagrams rather than raw data.
 
 
 ## Usage
 
-Put `[lein-topology "0.1.0-SNAPSHOT"]` into the `:plugins` vector of your `:user` profile.
+Add `lein-topology` to the `:plugins` vector of your `:user` profile in `~/.lein/profiles.clj`:
 
-cd into a Clojure project that uses `leiningen`.
+```clojure
+{:user {:plugins [[lein-topology "0.1.0"]]}}
+```
 
-Preview the network: `lein topology`
+Alternatively you may add the plugin to your `project.clj`:
 
-If everything looks good, redirect to file: `lein topology > /tmp/topology.csv`
+```clojure
+(defproject sample
+  :dependencies [[org.clojure/clojure "1.8.0"]]
+  :profiles {:dev {:plugins [[lein-topology "0.1.0"]]}})
+```
+
+`cd` into the project directory and run `lein topology`.
+
+Given a function declaration like:
+
+```clojure
+(defn print-weighted-edges
+  [edges]
+  (doseq [[[outv inv] w] edges]
+    (println (str/join "," [outv inv w]))))
+```
+
+The output will look like:
+
+    topology.core/print-weighted-edges,clojure.core/defn,1
+    topology.core/print-weighted-edges,clojure.core/doseq,1
+    topology.core/print-weighted-edges,clojure.core/println,1
+    topology.core/print-weighted-edges,clojure.string/join,1
+
+Edges are printed to `stdout` and output can be redirected to a file, e.g. `lein topology > /tmp/topology.csv`. Any errors will be printed to `stderr`, and will not appear in the redirected file output on a Unix-based system.
+
+You now have a directed graph of functions that call other functions in the code base represented as weighted edges. Edges from test paths are included, as these are useful for many types of analysis.
+
+This is not a [control flow graph](https://en.wikipedia.org/wiki/Control_flow_graph) (CFG). A CFG represents all paths that might be traversed through a program during its execution. If A and B are nodes in a CFG, an edge exists from A to B if and only if the function B can be executed immediately after the function A. Although all vertices necessary for a CFG are present in the `lein-topology` output, the edges in this case represent the fact that a function B is called at some point in the implementation of function A, and therefore A depends on B. A CFG would be a richer representation, but is difficult to obtain. The dependency structure already offers many interesting applications that will be explored in other work.
 
 
-## TODO
+## Acknowledgments
 
-• Provide a way to get a list of nodes from the Edgelist:
+Contributors of merged PR's and those who file issues are credited in [NOTICE.txt](./NOTICE.txt).
 
-`{ cut -d "," -f 1 /tmp/topology.csv & cut -d "," -f 2 /tmp/topology.csv; } | sort | uniq > /tmp/nodes.csv`
+[lein-hiera](https://github.com/greglook/lein-hiera) generates a Graphviz representation of namespace dependencies. The `topology.finder` namespace includes four functions from `lein-hiera` to find Clojure source files and namespaces.
 
-• Provide `ns --contains-> function` output.
-
-
-## Topology Network Visualization Workflow
-
-* Run the data through Edgewise to convert to GraphML
-  * edgewise edgelist->graphml /tmp/topology.csv > /tmp/topology.graphml
-  * Graphml is probably the lowest common denominator. TGF sucks though because the edges can't have weights.
-* Open the graphml in yEd and view in a hierarchical layout.
-  * Might need to introduce surrogate source or sink nodes.
-  * Might need to filter out namespaces that are too common.
-  * An online option with vis.js as with Storm of Swords allows the analysis to be more easily shared with a team. Having an up-to-date diagram with each commit might be interesting. Might even make sense to do this before a commit.
-
-
-## What is a Function Dependency Graph?
-
-<TODO: Explain the distinction between control flow graph and function dependency>
-
-• Link to the Code as Network analysis to indicate how the results of this network can be used as a refactoring and orientation tool.
-
+[lein-clique](https://github.com/Hendekagon/lein-clique) generates a Graphviz or map representation of functions in a namespace to the functions they depend on. The `topology.clique` namespace uses several functions from `lein-clique` to generate the same dependency map, then transforms it to the simple `source,target,weight` edge list format. `lein-topology` is mostly just a simpler version of the [0.1.2 version](https://github.com/Hendekagon/lein-clique/blob/a71845a69f8c0ce9724b217e82ae8ce47012fa39/src/clique/core.clj) of `lein-clique` by Matthew Chadwick, though the differences of this simplification were significant enough to warrant a new library.
 
 
 ## License
 
+Copyright © Bobby Norton and [Tested Minds, LLC](http://www.testedminds.com).
+
+Released under the [Apache License, Version 2.0](./LICENSE.txt)
