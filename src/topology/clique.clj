@@ -43,13 +43,13 @@
   (filter namespace (symbols expression)))
 
 (defn sources [fxns nspc]
-  (filter (comp identity second)
+  (filter second
           (map vector
                (map :name fxns)
                (map (comp repl/source-fn symbol (partial str nspc \/) :name) fxns))))
 
 (defn dependencies
-  "returns all functions used by each function in the given namespace"
+  "Returns all functions used by each function in the given namespace"
   ([namespace]
    (dependencies namespace (functions namespace)))
   ([namespace functions]
@@ -61,28 +61,26 @@
                [(symbol (str namespace) (str fn-name)) (symbols (read-string source))])
              (sources functions namespace))))))
 
-(defn except
-  "Filter out symbols not in exclude"
-  [sc exclude]
-  (filter #(not (= % exclude)) sc))
-
 (defn filtered
-  "Filter out symbols in exclude"
+  "Only keep fully-qualified functions, and ignore the source function itself..."
   [ds]
   (reduce
    (fn [r [f sc]]
-     (assoc r f
-            (except (map (partial fqns (symbol (namespace f))) (filter (comp identity namespace) sc)) f)))
+     (assoc r
+            f (filter #(and (namespace %) (not= % f)) sc)))
    {}
    ds))
 
 (defn all-fq
-  "Filter out symbols in exclude"
+  "Get all symbols for the dependencies..."
   [ds]
   (reduce
    (fn [r [f sc]]
-     (assoc r f (map (partial fqns (symbol (namespace f))) sc)))
+     (assoc r
+            f (map (partial fqns (symbol (namespace f))) sc)))
    {}
    ds))
 
-;; (pprint (filtered (all-fq (dependencies 'topology.analyzer))))
+(defn ns->edges [ns-str]
+  (mapcat (fn [[f deps]] (map (fn [x] [f x]) deps))
+          (filtered (all-fq (dependencies ns-str)))))

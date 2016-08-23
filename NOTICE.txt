@@ -1,0 +1,11 @@
+=============================================================================
+==  NOTICE file for use with the Apache License, Version 2.0,              ==
+==  in this case for the lein topology distribution.                       ==
+=============================================================================
+
+lein topology
+
+This product includes software developed by:
+
+Bobby Norton (bobby@testedminds.com)
+Colin Jones  (trptcolin@gmail.com)

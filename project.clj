@@ -1,8 +1,8 @@
 (defproject lein-topology "0.1.0-SNAPSHOT"
-  :description "A Leiningen plugin that generates a project's function call network."
-  :url "http://example.com/FIXME"
-  :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :description "A Leiningen plugin that generates a project's function dependency structure matrix."
+  :url "https://github.com/testedminds/lein-topology"
+  :license {:name "Apache License, Version 2.0"
+            :url "http://www.apache.org/licenses/LICENSE-2.0.html"}
   :eval-in-leiningen true
-  :dependencies [[org.clojure/tools.analyzer.jvm "0.6.9"]
-                 [org.clojure/tools.namespace "0.2.11"]])
+  :dependencies [[org.clojure/tools.namespace "0.2.11"]]
+  :profiles {:dev {:resource-paths ["test/resources"]}})
