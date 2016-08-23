@@ -1,9 +1,6 @@
 (ns topology.finder
   (:require [clojure.java.io :as io]
-            [clojure.set :as set]
-            [clojure.pprint :as cp]
-            [clojure.tools.namespace.file :as ns-file]
-            [clojure.tools.namespace.find :as ns-find])
+            [clojure.tools.namespace.file :as ns-file])
   (:import java.io.File))
 
 ;; h/t https://github.com/greglook/lein-hiera/blob/master/src/leiningen/hiera.clj
