@@ -1,6 +1,6 @@
 (ns topology.core
   (:require [clojure.string :as str]
-            [topology.clique :as tc]
+            [topology.dependencies :as td]
             [topology.finder :as tf]))
 
 (defn print-weighted-edges
@@ -11,5 +11,5 @@
 (defn all-ns->fn-edges [& source-paths]
   (let [sources (tf/find-sources source-paths)
         namespaces (set (tf/file-namespaces sources))
-        edges (mapcat tc/ns->edges namespaces)]
+        edges (mapcat td/ns->edges namespaces)]
     (frequencies edges)))
