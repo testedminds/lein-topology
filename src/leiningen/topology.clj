@@ -9,3 +9,4 @@
                            (topology.core/all-ns->fn-edges
                             ~@(flatten (conj (:source-paths project) (:test-paths project)))))
                         `(require 'topology.core)))
+
