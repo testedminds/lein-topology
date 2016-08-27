@@ -7,9 +7,8 @@
     (is (> (count fns) 0))))
 
 (deftest should-compute-fn-calls-in-namespace
-  (let [deps (filtered (all-fq (dependencies 'example)))]
+  (let [deps (filtered (all-fq (dependencies 'example (functions 'example))))]
     (is (= ('example/a-test-def deps)
            ['clojure.core/map 'clojure.core/* 'clojure.core/range]))
     (is (= ('example/a-defn-with-a-macro deps)
            ['clojure.core/defn 'example/test-when 'example/a-test-def 'clojure.string/join]))))
-

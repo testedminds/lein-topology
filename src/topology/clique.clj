@@ -1,10 +1,7 @@
 (ns topology.clique
   (:require
-   [clojure.zip :as zip]
-   [clojure.repl :as repl]))
-
-;; h/t lein-clique 0.1.2
-;; https://github.com/Hendekagon/lein-clique/blob/a71845a69f8c0ce9724b217e82ae8ce47012fa39/src/clique/core.clj
+   [clojure.repl :as repl]
+   [topology.symbols :as ts]))
 
 (defn functions
   "Returns all the functions in the namespace ns"
@@ -16,7 +13,7 @@
     (catch Exception e
       (.println *err* e))))
 
-(defn fqns
+(defn fq-ns
   "Returns the fully qualified namespace of the given symbol s in namespace ns"
   ([ns s]
    (if-let [rns (try (-> (ns-resolve ns s) meta :ns)
@@ -26,22 +23,6 @@
      (symbol (str rns) (name s))
      s)))
 
-(defn seq-map-zip [x]
-  (zip/zipper
-   (fn [n] (or (seq? n) (map? n) (vector? n)))
-   (fn [b] (if (map? b) (seq b) b))
-   (fn [node children] (with-meta children (meta node)))
-   x))
-
-(defn zip-nodes [x]
-  (take-while (complement zip/end?) (iterate zip/next (seq-map-zip x))))
-
-(defn symbols [x]
-  (filter symbol? (map zip/node (zip-nodes x)))) ; also returns Java classes
-
-(defn namespaced-symbols [expression]
-  (filter namespace (symbols expression)))
-
 (defn sources [fxns nspc]
   (filter second
           (map vector
@@ -50,16 +31,14 @@
 
 (defn dependencies
   "Returns all functions used by each function in the given namespace"
-  ([namespace]
-   (dependencies namespace (functions namespace)))
-  ([namespace functions]
-   (into
-    {}
-    (filter (comp not-empty second)
-            (map
-             (fn [[fn-name source]]
-               [(symbol (str namespace) (str fn-name)) (symbols (read-string source))])
-             (sources functions namespace))))))
+  [nspc fns]
+  (into
+   {}
+   (filter (comp not-empty second)
+           (map
+            (fn [[fn-name source]]
+              [(symbol (str nspc) (str fn-name)) (ts/symbols (read-string source))])
+            (sources fns nspc)))))
 
 (defn filtered
   "Only keep fully-qualified functions, and ignore the source function itself..."
@@ -77,10 +56,10 @@
   (reduce
    (fn [r [f sc]]
      (assoc r
-            f (map (partial fqns (symbol (namespace f))) sc)))
+            f (map (partial fq-ns (symbol (namespace f))) sc)))
    {}
    ds))
 
 (defn ns->edges [ns-str]
   (mapcat (fn [[f deps]] (map (fn [x] [f x]) deps))
-          (filtered (all-fq (dependencies ns-str)))))
+          (filtered (all-fq (dependencies ns-str (functions ns-str))))))
