@@ -52,7 +52,7 @@ Contributors of merged PR's and those who file issues are credited in [NOTICE.tx
 
 [lein-hiera](https://github.com/greglook/lein-hiera) generates a Graphviz representation of namespace dependencies. The `topology.finder` namespace includes four functions from `lein-hiera` to find Clojure source files and namespaces.
 
-[lein-clique](https://github.com/Hendekagon/lein-clique) by Matthew Chadwick generates a Graphviz or map representation of functions in a namespace to the functions they depend on. The `topology.dependencies` namespace uses several functions from `lein-clique` to generate the same dependency map, then transforms it to the simple `source,target,weight` edge list format. `lein-topology` is mostly just a simpler version of the [0.1.2 version](https://github.com/Hendekagon/lein-clique/blob/a71845a69f8c0ce9724b217e82ae8ce47012fa39/src/clique/core.clj) of `lein-clique`, though the differences of this simplification were significant enough to warrant a new library.
+[lein-clique](https://github.com/Hendekagon/lein-clique) by Matthew Chadwick generates a Graphviz or map representation of functions in a namespace to the functions they depend on. The `topology.dependencies` namespace uses several functions from `lein-clique` to generate a similar dependency map, then transforms it to a `source,target,weight` edgelist format. `lein-topology` is mostly just a simpler version of the [0.1.2 version](https://github.com/Hendekagon/lein-clique/blob/a71845a69f8c0ce9724b217e82ae8ce47012fa39/src/clique/core.clj) of `lein-clique`, though the differences of where I wanted to go with the library and `lein-clique`'s current `master` branch were significant enough to warrant a new library.
 
 
 ## License
