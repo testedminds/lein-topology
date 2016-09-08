@@ -2,10 +2,6 @@
   (:require [clojure.test :refer :all]
             [topology.dependencies :refer :all]))
 
-(deftest should-return-all-interns-in-namespace
-  (let [ins (interns 'example)]
-    (is (> (count ins) 0))))
-
 (deftest should-compute-fn-calls-in-namespace
   (let [deps (ns->fn-dep-map 'example)]
     (is (= ('example/a-test-def deps)

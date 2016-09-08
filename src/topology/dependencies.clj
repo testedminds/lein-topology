@@ -3,7 +3,7 @@
    [clojure.repl :as repl]
    [topology.symbols :as ts]))
 
-(defn interns
+(defn- interns
   "Returns metadata for all the interns in a namespace."
   [ns]
   (try
@@ -12,7 +12,7 @@
     (catch Exception e
       (.println *err* e))))
 
-(defn sources
+(defn- sources
   "Given a sequence of metadata maps, returns a vector of [name source-string]."
   [vars nspc]
   (filter second
@@ -20,7 +20,7 @@
                (map :name vars)
                (map (comp repl/source-fn symbol (partial str nspc \/) :name) vars))))
 
-(defn fq-ns
+(defn- fq-ns
   "Returns the fully qualified namespace of the given symbol s in namespace ns."
   ([ns s]
    (if-let [rns (try (-> (ns-resolve ns s) meta :ns)
@@ -29,7 +29,7 @@
      (symbol (str rns) (name s))
      s)))
 
-(defn dependencies
+(defn- dependencies
   "Returns all functions used by each function in the given namespace."
   [nspc srcs]
   (into
@@ -40,7 +40,7 @@
               [(symbol (str nspc) (str fn-name)) (ts/symbols (read-string source))])
             srcs))))
 
-(defn filtered
+(defn- filtered
   "Only keep fully-qualified functions, and ignore the source function itself..."
   [ds]
   (reduce
@@ -50,7 +50,7 @@
    {}
    ds))
 
-(defn all-fq
+(defn- all-fq
   "Get all symbols for the dependencies..."
   [ds]
   (reduce
