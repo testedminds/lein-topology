@@ -1,4 +1,4 @@
-(defproject lein-topology "0.1.0-SNAPSHOT"
+(defproject lein-topology "0.1.0"
   :description "A Leiningen plugin that generates a project's function dependency structure matrix."
   :url "https://github.com/testedminds/lein-topology"
   :license {:name "Apache License, Version 2.0"
