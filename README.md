@@ -43,7 +43,37 @@ Edges are printed to `stdout` and output can be redirected to a file, e.g. `lein
 
 You now have a directed graph of functions that call other functions in the code base represented as weighted edges. Edges from test paths are included, as these are useful for many types of analysis.
 
-This is not a [control flow graph](https://en.wikipedia.org/wiki/Control_flow_graph) (CFG). A CFG represents all paths that might be traversed through a program during its execution. If A and B are nodes in a CFG, an edge exists from A to B if and only if the function B can be executed immediately after the function A. Although all vertices necessary for a CFG are present in the `lein-topology` output, the edges in this case represent the fact that a function B is called at some point in the implementation of function A, and therefore A depends on B. A CFG would be a richer representation, but is difficult to obtain. The dependency structure already offers many interesting applications that will be explored in other work.
+
+## Example application: Generating architecture diagrams from dependency networks
+
+This is the dependency structure of `lein topology`:
+
+![](./doc/lein-topology-faad435.png)
+
+This diagram was created in [Cytoscape](http://www.cytoscape.org/) with data obtained by running `lein-topology` on itself.
+
+The visulization was designed to highlight several attributes of the system:
+
+* The flow of control starts in the lower left-hand side at the `leiningen.topology/topology` function and flows across paths up and to the right in a depth-first traversal. A new developer wanting to work on `lein-topology` could start with this diagram as a map of the project's backbone.
+
+* The five namespaces in this library are arranged to be in close proximity. The functions could easily be clustered by namespace to simplify the visualization even further...were there more vertices, this step would be essential.
+
+* The program is a tree...a directed acyclic graph. There are several "hidden modules" that can be replaced, for example the zipper implementation in `topology.symbols`.
+
+* Test vertices and edges are arranged on the right and provide an indicator of test coverage.
+
+* Vertices and edges from namespaces outside of the library were removed.
+
+* Nodes are sized by their outdegree: These functions introduce the most dependencies, i.e. have high fan-out.
+
+Architecture diagrams provide a compact visual description of complicated engineered systems that allows for quick exploratory analysis and pattern recognition. Like comments, however, they are prone to being out of sync with the actual code. It would be preferable to generate these diagrams automatically as observed 'ground truth' about the system's structure.
+
+Fully automated visualization workflows are possible with Cytoscape thanks to its RESTful API. See, for example, Keiichiro Ono's work integrating [R, igraph, and Cytoscape](https://github.com/idekerlab/cy-rest-R/blob/develop/r_markdown/basic1.Rmd). A more detailed example of how to do this with `lein topology` output is forthcoming, along with other applications of the DSM data for descriptive system architecture.
+
+
+## Is this a control flow graph?
+
+A [control flow graph](https://en.wikipedia.org/wiki/Control_flow_graph) (CFG) represents all paths that might be traversed through a program during its execution. If A and B are nodes in a CFG, an edge exists from A to B if and only if the function B can be executed immediately after the function A. Although all vertices necessary for a CFG are present in the `lein-topology` output, the edges in this case represent the fact that a function B is called at some point in the implementation of function A, and therefore A depends on B. A CFG would be a richer representation, but is difficult to obtain. The above diagram approximates the CFG, but was layed out manually to achieve that effect. It would be interesting to determine if an accurate CFG could be generated with the approach in `lein-topology`.
 
 
 ## Acknowledgments
