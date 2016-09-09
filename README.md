@@ -7,6 +7,8 @@ Use `lein topology` to "collect the dots"...you can "connect the dots" to visual
 
 ## Usage
 
+[![Clojars Project](https://img.shields.io/clojars/v/lein-topology.svg)](https://clojars.org/lein-topology)
+
 Add `lein-topology` to the `:plugins` vector of your `:user` profile in `~/.lein/profiles.clj`:
 
 ```clojure
