@@ -14,7 +14,7 @@
 
 (defn- sources
   "Given a sequence of metadata maps, returns a vector of [name source-string]."
-  [vars nspc]
+  [nspc vars]
   (filter second
           (map vector
                (map :name vars)
@@ -60,10 +60,14 @@
    {}
    ds))
 
-(defn ns->fn-dep-map [nspc]
-  (let [vars (interns nspc)
-        srcs (sources vars nspc)]
-    (filtered (all-fq (dependencies nspc srcs)))))
+(defn ns->fn-dep-map
+  [nspc]
+  (->> nspc
+       interns
+       (sources nspc)
+       (dependencies nspc)
+       all-fq
+       filtered))
 
 (defn ns->edges [nspc]
   (mapcat (fn [[f deps]]
