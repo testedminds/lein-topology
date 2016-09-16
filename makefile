@@ -1,2 +1,10 @@
+SHELL := /usr/bin/env bash
+
+commit = `git rev-parse --short HEAD`
+
 dogfood:
-	lein topology > /tmp/lein-topology-`git rev-parse --short HEAD`.csv
+	lein topology > doc/lein-topology-$(commit).csv
+
+.SILENT: commit
+commit:
+	echo $(commit)
