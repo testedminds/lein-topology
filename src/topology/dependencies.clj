@@ -1,4 +1,4 @@
->(ns topology.dependencies
+(ns topology.dependencies
   (:require
    [clojure.repl :as repl]
    [topology.symbols :as ts]
@@ -39,8 +39,3 @@
        (sources nspc)
        (dependencies nspc)
        tq/filter-fully-qualified))
-
-(defn ns->edges [nspc]
-  (mapcat (fn [[f deps]]
-            (map (fn [x] [f x]) deps))
-          (ns->fn-dep-map nspc)))

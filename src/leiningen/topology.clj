@@ -5,7 +5,7 @@
   (lein/eval-in-project (update-in project [:dependencies] conj
                                    '[lein-topology "0.1.0-SNAPSHOT"]
                                    '[org.clojure/clojure "1.8.0"])
-                        `(topology.core/print-weighted-edges
-                           (topology.core/all-ns->fn-edges
+                        `(topology.printer/print-weighted-edges
+                           (topology.edgelist/dirs->fn-edges
                             ~@(flatten (conj (:source-paths project) (:test-paths project)))))
-                        `(require 'topology.core)))
+                        `(require 'topology.printer 'topology.edgelist)))
