@@ -12,7 +12,7 @@ Use `lein topology` to "collect the dots"...you can "connect the dots" to visual
 Add `lein-topology` to the `:plugins` vector of your `:user` profile in `~/.lein/profiles.clj`:
 
 ```clojure
-{:user {:plugins [[lein-topology "0.1.0"]]}}
+{:user {:plugins [[lein-topology "0.1.1"]]}}
 ```
 
 Alternatively you may add the plugin to your `project.clj`:
@@ -20,7 +20,7 @@ Alternatively you may add the plugin to your `project.clj`:
 ```clojure
 (defproject sample
   :dependencies [[org.clojure/clojure "1.8.0"]]
-  :profiles {:dev {:plugins [[lein-topology "0.1.0"]]}})
+  :profiles {:dev {:plugins [[lein-topology "0.1.1"]]}})
 ```
 
 `cd` into the project directory and run `lein topology`.

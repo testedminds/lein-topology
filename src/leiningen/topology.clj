@@ -3,7 +3,7 @@
 
 (defn topology [project & args]
   (lein/eval-in-project (update-in project [:dependencies] conj
-                                   '[lein-topology "0.1.0-SNAPSHOT"]
+                                   '[lein-topology "0.1.1"]
                                    '[org.clojure/clojure "1.8.0"])
                         `(topology.core/print-weighted-edges
                            (topology.core/all-ns->fn-edges
