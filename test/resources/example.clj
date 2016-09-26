@@ -13,8 +13,7 @@
   (java.util.Collections/EMPTY_SET))
 
 (defn multiple-calls [x]
-  (println x)
-  (println x))
+  (meta (meta x)))
 
 (defn using-syntax-quote [x]
   `(max ~@(shuffle (range x))))

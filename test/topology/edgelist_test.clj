@@ -5,7 +5,7 @@
 (def edges (dirs->fn-edges "./test/resources"))
 
 (deftest should-produce-weighted-edges-for-multiple-calls
-  (is (= 2 (get edges ['example/multiple-calls 'clojure.core/println]))))
+  (is (= 2 (get edges ['example/multiple-calls 'clojure.core/meta]))))
 
 (deftest should-report-java-interop
   (is (= 1 (get edges ['example/java-interop 'java.util.Collections/EMPTY_SET]))))
