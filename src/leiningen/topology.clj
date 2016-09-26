@@ -6,6 +6,6 @@
                                    '[lein-topology "0.2.0-SNAPSHOT"]
                                    '[org.clojure/clojure "1.8.0"])
                         `(topology.printer/print-weighted-edges
-                           (topology.edgelist/dirs->fn-edges
-                            ~@(flatten (conj (:source-paths project) (:test-paths project)))))
+                          (topology.edgelist/dirs->fn-edges
+                           ~@(flatten (conj (:source-paths project) (:test-paths project)))))
                         `(require 'topology.printer 'topology.edgelist)))

@@ -12,7 +12,7 @@ Use `lein topology` to "collect the dots"...you can "connect the dots" to visual
 Add `lein-topology` to the `:plugins` vector of your `:user` profile in `~/.lein/profiles.clj`:
 
 ```clojure
-{:user {:plugins [[lein-topology "0.1.0"]]}}
+{:user {:plugins [[lein-topology "0.1.1"]]}}
 ```
 
 Alternatively you may add the plugin to your `project.clj`:
@@ -20,7 +20,7 @@ Alternatively you may add the plugin to your `project.clj`:
 ```clojure
 (defproject sample
   :dependencies [[org.clojure/clojure "1.8.0"]]
-  :profiles {:dev {:plugins [[lein-topology "0.1.0"]]}})
+  :profiles {:dev {:plugins [[lein-topology "0.1.1"]]}})
 ```
 
 `cd` into the project directory and run `lein topology`.
@@ -68,7 +68,7 @@ The visulization was designed to highlight several attributes of the system:
 
 Architecture diagrams provide a compact visual description of complicated engineered systems that allows for quick exploratory analysis and pattern recognition. Like comments, however, they are prone to being out of sync with the actual code. It would be preferable to generate these diagrams automatically as observed 'ground truth' about the system's structure.
 
-Fully automated visualization workflows are possible with Cytoscape thanks to its RESTful API. See the [sandbox](https://www.github.com/bobbyno/sandbox) project for more information.
+Fully automated visualization workflows are possible with Cytoscape thanks to its RESTful API. See the [sandbook](https://www.github.com/bobbyno/sandbook) project for more information.
 
 ## Is this a control flow graph?
 
