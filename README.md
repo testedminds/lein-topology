@@ -50,7 +50,7 @@ You now have a directed graph of functions that call other functions in the code
 
 This is the dependency structure of `lein topology`:
 
-![](./data/lein-topology-28cf190.svg)
+<img src="https://cdn.rawgit.com/testedminds/lein-topology/master/data/lein-topology-28cf190.svg">
 
 This diagram was created with data obtained by running `lein-topology` on itself using [sandbook](https://www.github.com/bobbyno/sandbook), v360dd2b.
 
