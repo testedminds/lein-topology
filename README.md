@@ -50,9 +50,9 @@ You now have a directed graph of functions that call other functions in the code
 
 This is the dependency structure of `lein topology`:
 
-![](./doc/lein-topology-faad435.png)
+![](./data/lein-topology-28cf190.svg)
 
-This diagram was created in [Cytoscape](http://www.cytoscape.org/) with data obtained by running `lein-topology` on itself.
+This diagram was created with data obtained by running `lein-topology` on itself using [sandbook](https://www.github.com/bobbyno/sandbook), v360dd2b.
 
 The visulization was designed to highlight several attributes of the system:
 
@@ -66,12 +66,9 @@ The visulization was designed to highlight several attributes of the system:
 
 * Vertices and edges from namespaces outside of the library were removed.
 
-* Nodes are sized by their outdegree: These functions introduce the most dependencies, i.e. have high fan-out.
-
 Architecture diagrams provide a compact visual description of complicated engineered systems that allows for quick exploratory analysis and pattern recognition. Like comments, however, they are prone to being out of sync with the actual code. It would be preferable to generate these diagrams automatically as observed 'ground truth' about the system's structure.
 
-Fully automated visualization workflows are possible with Cytoscape thanks to its RESTful API. See, for example, Keiichiro Ono's work integrating [R, igraph, and Cytoscape](https://github.com/idekerlab/cy-rest-R/blob/develop/r_markdown/basic1.Rmd). A more detailed example of how to do this with `lein topology` output is forthcoming, along with other applications of the DSM data for descriptive system architecture.
-
+Fully automated visualization workflows are possible with Cytoscape thanks to its RESTful API. See the [sandbook](https://www.github.com/bobbyno/sandbook) project for more information.
 
 ## Is this a control flow graph?
 

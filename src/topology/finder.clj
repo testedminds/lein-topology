@@ -15,13 +15,14 @@
   "Searches recursively under dir for source files (.clj and .cljs).
   Returns a sequence of File objects, in breadth-first sort order."
   [dir]
-  (->> (io/file dir)
+  (->> dir
+       io/file
        file-seq
        (filter #(or (clojurescript-file? %)
                     (ns-file/clojure-file? %)))
        (sort-by #(.getAbsolutePath ^File %))))
 
-(defn find-sources
+(defn- dirs->sources
   "Finds a list of source files located in the given directories."
   [dirs]
   (->> dirs
@@ -29,7 +30,10 @@
        (map find-sources-in-dir)
        flatten))
 
-(defn file-namespaces
+(defn source-paths->namespaces
   "Calculates the namespaces defined by the given files."
-  [files]
-  (map (comp second ns-file/read-file-ns-decl) files))
+  [dirs]
+  (->> dirs
+       dirs->sources
+       (map (comp second ns-file/read-file-ns-decl))
+       set))
