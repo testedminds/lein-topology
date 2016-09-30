@@ -52,7 +52,7 @@ This is the dependency structure of `lein topology`:
 
 ![](./data/lein-topology-28cf190.svg)
 
-This diagram was created in [Cytoscape](http://www.cytoscape.org/) with data obtained by running `lein-topology` on itself.
+This diagram was created with data obtained by running `lein-topology` on itself using [sandbook](https://www.github.com/bobbyno/sandbook), v360dd2b.
 
 The visulization was designed to highlight several attributes of the system:
 
