@@ -1,0 +1,7 @@
+--index-url https://pypi.python.org/simple/
+# equivalent to python setup.py develop
+# -e .
+matplotlib==2.0.2
+py2cytoscape==0.6.2
+jupyter==1.0.0
+sand==0.2.0

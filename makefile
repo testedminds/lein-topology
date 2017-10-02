@@ -5,8 +5,8 @@ commit = `git rev-parse --short HEAD`
 dogfood:
 	rm -rf ~/.m2/repository/lein-topology
 	lein do test, install
-	lein topology > data/lein-topology-$(commit).csv
-	wc -l data/*.csv
+	lein topology > ./docs/data/lein-topology-$(commit).csv
+	wc -l ./docs/data/*.csv
 
 .SILENT: commit
 commit:
