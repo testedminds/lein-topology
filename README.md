@@ -50,9 +50,9 @@ You now have a directed graph of functions that call other functions in the code
 
 This is the dependency structure of `lein topology`:
 
-<img src="https://cdn.rawgit.com/testedminds/lein-topology/master/data/lein-topology-28cf190.svg">
+<img src="https://cdn.rawgit.com/testedminds/lein-topology/master/docs/data/lein-topology-faad435.svg">
 
-This diagram was created with data obtained by running `lein-topology` on itself using [sandbook](https://www.github.com/bobbyno/sandbook), v360dd2b.
+This diagram was created with data obtained by running `lein-topology` on itself using [SAND](https://github.com/testedminds/sand).
 
 The visulization was designed to highlight several attributes of the system:
 
@@ -64,11 +64,11 @@ The visulization was designed to highlight several attributes of the system:
 
 * Test vertices and edges are arranged on the right and provide an indicator of test coverage.
 
-* Vertices and edges from namespaces outside of the library were removed.
+* Vertices and edges from namespaces outside of the library were removed, except for those from `clojure.core` that have side-effects.
 
 Architecture diagrams provide a compact visual description of complicated engineered systems that allows for quick exploratory analysis and pattern recognition. Like comments, however, they are prone to being out of sync with the actual code. It would be preferable to generate these diagrams automatically as observed 'ground truth' about the system's structure.
 
-Fully automated visualization workflows are possible with Cytoscape thanks to its RESTful API. See the [sandbook](https://www.github.com/bobbyno/sandbook) project for more information.
+Fully automated visualization workflows are possible with Cytoscape thanks to its RESTful API. See the [SAND](https://www.github.com/testedminds/sand) project for more information.
 
 ## Is this a control flow graph?
 
