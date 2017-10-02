@@ -54,6 +54,9 @@ This is the dependency structure of `lein topology`:
 
 This diagram was created with data obtained by running `lein-topology` on itself using [SAND](https://github.com/testedminds/sand).
 
+The full analysis is in the [`docs` folder](https://github.com/testedminds/lein-topology/blob/master/docs/High-Level%20Architecture.ipynb
+).
+
 The visulization was designed to highlight several attributes of the system:
 
 * The flow of control starts in the lower left-hand side at the `leiningen.topology/topology` function and flows across paths up and to the right in a depth-first traversal. A new developer wanting to work on `lein-topology` could start with this diagram as a map of the project's backbone.
