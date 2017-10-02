@@ -1,6 +1,6 @@
 topology.core-test/edges,568.3121452270144,603.5711288329351
-clojure.core/*err*,289.88410660546305,-159.2868865432962
-topology.core-test/should-produce-weighted-edges-for-multiple-calls,658.4544067382812,742.5513687256587
+clojure.core/*err*,345.2966907474868,-138.5071563720703
+topology.core-test/should-produce-weighted-edges-for-multiple-calls,650.1425193839326,584.62548828125
 topology.symbols/zip-nodes,452.1331481933594,96.28380797695931
 topology.core-test/should-report-java-interop,658.4544067382812,696.8993454347884
 topology.symbols/symbols,396.4121398925781,129.42099424981708
@@ -9,7 +9,7 @@ topology.dependencies/fq-ns,115.93187713623047,-27.262397778393016
 topology.dependencies/sources,79.7074438706604,201.70419960278633
 topology.dependencies/all-fq,86.57453917229057,19.0150146484375
 topology.dependencies/interns,79.7074438706604,254.1591121647918
-clojure.core/println,292.5631532363224,-258.726049751304
+clojure.core/println,469.8833923339844,-218.55200080608054
 topology.core/print-weighted-edges,-213.5853729248047,-143.23159185025852
 topology.finder/source-paths->namespaces,153.5184418258445,525.4467163085938
 topology.core/all-ns->fn-edges,-83.61927089562832,600.1376077440597
@@ -19,7 +19,7 @@ topology.dependencies/ns->fn-dep-map,-83.61927089562832,293.91682540571594
 topology.dependencies/ns->edges,-84.74564361572266,368.57476593661494
 topology.finder/clojurescript-file?,319.4440857467429,365.1752624511719
 topology.finder/find-sources-in-dir,231.9096314010398,404.04541015625
-leiningen.topology/topology,85.15520477294922,537.9515320358054
-topology.dependencies-test/should-compute-fn-calls-in-namespace,552.7932799759134,294.14007568359375
+leiningen.topology/topology,-212.687255859375,650.1620483398438
+topology.dependencies-test/should-compute-fn-calls-in-namespace,634.52685546875,294.1400768306382
 topology.dependencies/filtered,79.7074438706604,-77.95073699951172
 topology.dependencies/dependencies,79.7074438706604,146.716796875
